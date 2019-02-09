@@ -5,25 +5,35 @@ import { User } from '../models/user';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
-    constructor(private http: HttpClient) { }
+    users: User[] = [];
 
-    getAll() {
-        return this.http.get<User[]>(`${config.apiUrl}/users`);
+    constructor(private httpClient: HttpClient) { }
+
+    getAllUsers(): Promise<User[]> {
+        return this.httpClient
+                .get<User[]>('/api/users')
+                .toPromise()
+                .then(data =>
+                this.users = data);
     }
+
+    getSize(): number{
+        return this.users.length;
+      }
 
     getById(id: number) {
-        return this.http.get(`${config.apiUrl}/users/${id}`);
+        return this.httpClient.get(`/api/users/${id}`);
     }
 
-    register(user: User) {
-        return this.http.post(`${config.apiUrl}/users/register`, user);
+    async register(user: User) {
+        await this.httpClient.post<User>(`/api/users`, user).toPromise();
     }
 
     update(user: User) {
-        return this.http.put(`${config.apiUrl}/users/${user.userID}`, user);
+        return this.httpClient.put(`/api/users/${user.userID}`, user);
     }
 
     delete(id: number) {
-        return this.http.delete(`${config.apiUrl}/users/${id}`);
+        return this.httpClient.delete(`/api/users/${id}`);
     }
 }

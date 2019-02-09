@@ -6,12 +6,15 @@ import { first } from 'rxjs/operators';
 import { AlertService } from '../services/alert.service';
 import { UserService } from '../services/user.service';
 import { AuthenticationService } from '../services/authentication.service';
+import { User } from '@/models/user';
 
 @Component({templateUrl: 'register.component.html'})
 export class RegisterComponent implements OnInit {
     registerForm: FormGroup;
     loading = false;
     submitted = false;
+    model: User;
+    newID: number;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -41,8 +44,28 @@ export class RegisterComponent implements OnInit {
     // convenience getter for easy access to form fields
     get f() { return this.registerForm.controls; }
 
-    onSubmit() {
+
+    async onSubmit() {
         this.submitted = true;
+        this.newID = Math.floor(Math.random() * 10000) + 1;
+
+        console.log(this.newID);
+
+        this.model = new User(  this.newID,
+                                this.registerForm.value.userName,
+                                this.registerForm.value.emailAddress,
+                                this.registerForm.value.currentWeight,
+                                this.registerForm.value.goalWeight,
+                                this.registerForm.value.height,
+                                this.registerForm.value.age,
+                                this.registerForm.value.password,
+                                0,
+                                0,
+                                'ROLE_USER');
+
+        console.log(this.model);
+        
+        
 
         // stop here if form is invalid
         if (this.registerForm.invalid) {
@@ -51,16 +74,6 @@ export class RegisterComponent implements OnInit {
         }
 
         this.loading = true;
-        this.userService.register(this.registerForm.value)
-            .pipe(first())
-            .subscribe(
-                data => {
-                    this.alertService.success('Registration successful', true);
-                    this.router.navigate(['/login']);
-                },
-                error => {
-                    this.alertService.error(error);
-                    this.loading = false;
-                });
+        await this.userService.register(this.model);
     }
 }

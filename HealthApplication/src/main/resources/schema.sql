@@ -1,7 +1,7 @@
 -- USERS tábla létrehozása
 CREATE TABLE USERS
 (
-    USER_ID int PRIMARY KEY,
+    USER_ID long PRIMARY KEY,
     USER_NAME varchar2(16),
     EMAIL_ADDRESS varchar2(32),
     USER_CURRENT_WEIGHT long,

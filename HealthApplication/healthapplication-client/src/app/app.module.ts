@@ -15,6 +15,7 @@ import { ErrorInterceptor } from './helpers/error.interceptor';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { UserlistComponent } from './userlist/userlist.component';
 
 @NgModule({
     imports: [
@@ -28,7 +29,8 @@ import { RegisterComponent } from './register/register.component';
         AlertComponent,
         HomeComponent,
         LoginComponent,
-        RegisterComponent
+        RegisterComponent,
+        UserlistComponent
     ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
