@@ -1,0 +1,5 @@
+A napi folyadékigény több tényezõtõl függ.
+
+Az alap folyadékszükséglet a testsúly függvénye.
+
+Edzés, izzadás, láz, hasmenés, hányás, kánikula esetén növelni kell a bevitt folyadékmennyiséget, és az elvesztett elektrolitok (pl. só) pótlására is figyelmet kell fordítani. A kávé, tea, üdítõ italok, energiaitalok, alkoholos italok vízelvonó hatással rendelkeznek, fogyasztásuk esetén meg kell emelni a bevitt folyadékmennyiséget.
