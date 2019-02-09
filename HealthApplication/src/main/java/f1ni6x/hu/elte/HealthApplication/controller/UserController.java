@@ -6,7 +6,6 @@ import f1ni6x.hu.elte.HealthApplication.repository.UserRepository;
 import f1ni6x.hu.elte.HealthApplication.repository.WaterDrinkReminder.CupTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

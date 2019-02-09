@@ -45,8 +45,6 @@ public class User {
     @Column(name = "CURRENT_WATER_AMOUNT")
     private long currentWaterAmount;
 
-    private boolean isWaterAmountOK = false;
-
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "owner")
     @JsonIgnore
     private List<CupType> myCups;
