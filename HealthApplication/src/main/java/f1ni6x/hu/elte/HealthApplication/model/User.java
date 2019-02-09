@@ -45,6 +45,14 @@ public class User {
     @Column(name = "CURRENT_WATER_AMOUNT")
     private long currentWaterAmount;
 
+    @Column(name = "USER_ROLE")
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
+    public enum Role {
+        ROLE_GUEST, ROLE_USER, ROLE_ADMIN
+    }
+
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "owner")
     @JsonIgnore
     private List<CupType> myCups;

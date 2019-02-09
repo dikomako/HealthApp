@@ -4,8 +4,11 @@ import f1ni6x.hu.elte.HealthApplication.model.User;
 import f1ni6x.hu.elte.HealthApplication.model.WaterDrinkReminder.CupType;
 import f1ni6x.hu.elte.HealthApplication.repository.UserRepository;
 import f1ni6x.hu.elte.HealthApplication.repository.WaterDrinkReminder.CupTypeRepository;
+import f1ni6x.hu.elte.HealthApplication.security.AuthenticatedUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,7 +17,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/users")
-// @Secured({ "ROLE_USER", "ROLE_ADMIN"})
+@Secured({ "ROLE_USER", "ROLE_ADMIN"})
 public class UserController {
 
     @Autowired
@@ -23,8 +26,8 @@ public class UserController {
     @Autowired
     private CupTypeRepository cupTypeRepository;
 
-    // @Autowired
-    // private AuthenticatedUser authenticatedUser;
+    @Autowired
+    private AuthenticatedUser authenticatedUser;
 
     @GetMapping("")
     public Iterable<User> getAll() {
@@ -42,11 +45,10 @@ public class UserController {
         }
     }
 
-    /*
     @PostMapping("login")
     public ResponseEntity<User> login() {
         return ResponseEntity.ok(authenticatedUser.getUser());
-    }*/
+    }
 
     @GetMapping("/{id}/cuptypes")
     public ResponseEntity<List<CupType>> getUserCupTypes(@PathVariable Integer id) {
@@ -58,8 +60,8 @@ public class UserController {
         }
     }
 
-    // @Autowired
-    // private BCryptPasswordEncoder passwordEncoder;
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
 
     @PostMapping("")
     public ResponseEntity<User> create(@RequestBody User user) {
@@ -67,8 +69,8 @@ public class UserController {
         if (optionalUser.isPresent()) {
             return ResponseEntity.badRequest().build();
         }
-        // user.setPassword(passwordEncoder.encode(user.getPassword()));
-        // user.setRole(User.Role.ROLE_USER);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setRole(User.Role.ROLE_USER);
         return ResponseEntity.ok(userRepository.save(user));
     }
 
