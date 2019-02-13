@@ -71,6 +71,7 @@ public class UserController {
         }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRole(User.Role.ROLE_USER);
+        user.calculateBMIvalue();
         return ResponseEntity.ok(userRepository.save(user));
     }
 

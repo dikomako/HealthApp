@@ -15,6 +15,7 @@ export class RegisterComponent implements OnInit {
     submitted = false;
     model: User;
     newID: number;
+    dailyWaterAmount: number;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -38,6 +39,7 @@ export class RegisterComponent implements OnInit {
             goalWeight: ['', Validators.required],
             height: ['', Validators.required],
             age: ['', Validators.required],
+            gender: ['', Validators.required],
         });
     }
 
@@ -51,6 +53,8 @@ export class RegisterComponent implements OnInit {
 
         console.log(this.newID);
 
+        this.waterConsumptionCalculator();
+
         this.model = new User(  this.newID,
                                 this.registerForm.value.userName,
                                 this.registerForm.value.emailAddress,
@@ -59,11 +63,13 @@ export class RegisterComponent implements OnInit {
                                 this.registerForm.value.height,
                                 this.registerForm.value.age,
                                 this.registerForm.value.password,
+                                this.dailyWaterAmount,
                                 0,
-                                0,
-                                'ROLE_USER');
+                                'ROLE_USER',
+                                this.registerForm.value.gender);
 
         console.log(this.model);
+        
         
         
 
@@ -75,5 +81,10 @@ export class RegisterComponent implements OnInit {
 
         this.loading = true;
         await this.userService.register(this.model);
+    }
+
+    waterConsumptionCalculator() {
+        this.dailyWaterAmount = (this.registerForm.value.currentWeight / 2 ) * 120;
+        console.log(this.dailyWaterAmount);
     }
 }

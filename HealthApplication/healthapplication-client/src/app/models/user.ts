@@ -10,6 +10,7 @@ export class User {
     dailyWaterAmount: number;
     currentWaterAmount: number;
     role: string;
+    gender: string;
     token: string;
 
     // constructor
@@ -24,7 +25,8 @@ export class User {
         password: string,
         dailyWaterAmount: number,
         currentWaterAmount: number,
-        role: string) { 
+        role: string,
+        gender: string) { 
 
             this.userID = userID;
             this.userName = userName;
@@ -37,5 +39,6 @@ export class User {
             this.dailyWaterAmount = dailyWaterAmount;
             this.currentWaterAmount = currentWaterAmount;
             this.role = role;
+            this.gender = gender;
      }
 }

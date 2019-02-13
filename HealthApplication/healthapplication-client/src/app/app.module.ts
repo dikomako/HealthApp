@@ -2,6 +2,8 @@ import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule }    from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { MatFormFieldModule } from '@angular/material/form-field';
+
 
 // used to create fake backend
 import { fakeBackendProvider } from './helpers/fake-backend';
@@ -22,6 +24,7 @@ import { UserlistComponent } from './userlist/userlist.component';
         BrowserModule,
         ReactiveFormsModule,
         HttpClientModule,
+        MatFormFieldModule,
         routing
     ],
     declarations: [
